@@ -6,6 +6,7 @@
 
 <script>
     import axios from 'axios';
+import { errors } from 'undici-types';
 
     export default {
     props: ['userId', 'follows'],
@@ -25,7 +26,9 @@
                 this.status = this.status === 'Follow' ? 'Unfollow' : 'Follow';
                 console.log(response.data);
             } catch (error) {
-                console.error(error);
+                if (error.response.status == 401) {
+                    windows.location = '/login'
+                };
             }
         }
     }
